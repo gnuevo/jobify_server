@@ -32,6 +32,17 @@ app.get('/jobs', (req, res) => {
   });
 });
 
+app.get('/jobs/:jobid', (req, res) => {
+  var jobId = req.params.jobid;
+  Job.find({ id: jobId }).then((job) => {
+    // console.log(job);
+    if (job.length == 0) {
+      return res.status(404).send();
+    }
+    res.status(200).send(job[0]);
+  });
+});
+
 app.listen(port, () => {
     console.log(`Started on port ${port}`);
 });

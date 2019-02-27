@@ -111,3 +111,25 @@ describe('GET /jobs', () => {
     .end(done);
   });
 });
+
+describe('GET /jobs/:jobid', () => {
+  it('should retrieve an existing job', (done) => {
+    var index = 0;
+    request(app)
+    .get(`/jobs/${jobs[index].id}`)
+    .expect(200)
+    .expect((res) => {
+      expect(res.body.id).toBe(jobs[index].id);
+      expect(res.body._id).toBe(jobs[index]._id.toHexString());
+    })
+    .end(done);
+  });
+
+  it('should return 404 because the job doesn\'t exist', (done) => {
+    var false_id = "superjobs:123";
+    request(app)
+    .get(`/jobs/${false_id}`)
+    .expect(404)
+    .end(done);
+  });
+});
