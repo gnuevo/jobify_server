@@ -3,7 +3,8 @@ var {mongoose} = require('./../db/mongoose');
 var Job = mongoose.model('Job', {
   id: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   platform: {
     type: String,
