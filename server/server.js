@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 
 
 app.post('/jobs', (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     var job = new Job(req.body);
 
     job.save().then((doc) => {
@@ -24,6 +24,13 @@ app.post('/jobs', (req, res) => {
     });
 });
 
+app.get('/jobs', (req, res) => {
+  Job.find({}).then((jobs) => {
+    res.send({jobs});
+  }, (e) => {
+    res.status(400).send(e);
+  });
+});
 
 app.listen(port, () => {
     console.log(`Started on port ${port}`);

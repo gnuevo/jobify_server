@@ -99,3 +99,15 @@ describe('POST /jobs', () => {
       });
   });
 });
+
+describe('GET /jobs', () => {
+  it('should retrieve all jobs', (done) => {
+    request(app)
+    .get('/jobs')
+    .expect(200)
+    .expect((res) => {
+      expect(res.body.jobs.length).toBe(2);
+    })
+    .end(done);
+  });
+});
