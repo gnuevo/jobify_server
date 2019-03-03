@@ -15,23 +15,21 @@ var Job = mongoose.model('Job', {
     required: true
   },
   history: [{ status: String, date: Date}],
-  data: {
-    title: {
-      type: String,
-      required: true
-    },
-    company: {
-      type: String,
-      required: true
-    },
-    place: {
-      type: String,
-      default: ""
-    },
-    description: {
-      type: String,
-      required: true
-    }
+  title: {
+    type: String,
+    required: true
+  },
+  company: {
+    type: String,
+    required: true
+  },
+  place: {
+    type: String,
+    default: ""
+  },
+  description: {
+    type: String,
+    required: true
   }
 });
 
