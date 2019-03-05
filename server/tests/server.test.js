@@ -11,22 +11,18 @@ const jobs = [
   id: "glassdoor:1",
   platform: "glassdoor",
   jobUrl: "<url>",
-  data: {
-    title: "Cool job",
-    company: "Cool company",
-    description: "Oh, this job is really cool"
-  }
+  title: "Cool job",
+  company: "Cool company",
+  description: "Oh, this job is really cool"
 },
 {
   _id: new ObjectID(),
   id: "glassdoor:2",
   platform: "glassdoor",
   jobUrl: "<url>",
-  data: {
-    title: "Cool job 2",
-    company: "Cool company 2",
-    description: "Oh, this job is really cool 2"
-  }
+  title: "Cool job 2",
+  company: "Cool company 2",
+  description: "Oh, this job is really cool 2"
 }
 ]
 
@@ -43,11 +39,9 @@ describe('POST /jobs', () => {
       id: "glassdoor:new_job",
       platform: "glassdoor",
       jobUrl: "<url>",
-      data: {
-        title: "Cool job:new_job",
-        company: "Cool company:new_job",
-        description: "Oh, this job is really cool:new_job"
-      }
+      title: "Cool job:new_job",
+      company: "Cool company:new_job",
+      description: "Oh, this job is really cool:new_job"
     };
 
     request(app)
@@ -133,3 +127,17 @@ describe('GET /jobs/:jobid', () => {
     .end(done);
   });
 });
+
+// describe('DELETE /jobs/:jobid', () => {
+//   it('should retrieve an existing job', (done) => {
+//     var index = 0;
+//     request(app)
+//     .delete(`/jobs/${jobs[index].id}`)
+//     .expect(200)
+//     .expect((res) => {
+//       expect(res.body.id).toBe(jobs[index].id);
+//       expect(res.body._id).toBe(jobs[index]._id.toHexString());
+//     })
+//     .end(done);
+//   });
+// });
