@@ -60,6 +60,13 @@ app.get('/jobs/:jobid', (req, res) => {
   });
 });
 
+app.delete('/jobs/:jobid', (req, res) => {
+  var jobId = req.params.jobid;
+  Job.findOneAndRemove({ id: jobId }).then((job) => {
+    res.status(200).send(job);
+  })
+});
+
 // app.get('/todos', (req, res) => {
 //     Todo.find().then((todos) => {
 //         res.send({todos});

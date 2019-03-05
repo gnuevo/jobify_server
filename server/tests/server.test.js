@@ -128,16 +128,25 @@ describe('GET /jobs/:jobid', () => {
   });
 });
 
-// describe('DELETE /jobs/:jobid', () => {
-//   it('should retrieve an existing job', (done) => {
-//     var index = 0;
-//     request(app)
-//     .delete(`/jobs/${jobs[index].id}`)
-//     .expect(200)
-//     .expect((res) => {
-//       expect(res.body.id).toBe(jobs[index].id);
-//       expect(res.body._id).toBe(jobs[index]._id.toHexString());
-//     })
-//     .end(done);
-//   });
-// });
+describe('DELETE /jobs/:jobid', () => {
+  it('should retrieve an existing job', (done) => {
+    var index = 0;
+    request(app)
+    .delete(`/jobs/${jobs[index].id}`)
+    .expect(200)
+    .expect((res) => {
+      expect(res.body.id).toBe(jobs[index].id);
+      expect(res.body._id).toBe(jobs[index]._id.toHexString());
+    })
+    .end((err, res) => {
+      if (err) {
+        return done(err);
+      }
+
+      Job.find({ id: jobs[index].id }).then((jobs) => {
+        expect(jobs.length).toBe(0);
+        done();
+      }).catch((e) => done(e))
+    });
+  });
+});
