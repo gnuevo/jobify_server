@@ -61,10 +61,25 @@ app.get('/jobs/:jobid', (req, res) => {
 });
 
 app.delete('/jobs/:jobid', (req, res) => {
+  console.log("Delete", req.params.jobid);
   var jobId = req.params.jobid;
   Job.findOneAndRemove({ id: jobId }).then((job) => {
     res.status(200).send(job);
-  })
+  });
+});
+
+app.put('/jobs/:jobid', (req, res) => {
+  console.log("Update", req.params.jobid);
+  var jobId = req.params.jobid;
+  var update_value = req.body;
+  Job.findOneAndUpdate({ id: jobId }, update_value).then((job) => {
+    if (!job) {
+      res.status(400).send({ message: `Element ${jobId} not found!` });
+    }
+    res.status(200).send(job);
+  }, (e) => {
+    res.status(400).send(e);
+  });
 });
 
 // app.get('/todos', (req, res) => {

@@ -146,7 +146,43 @@ describe('DELETE /jobs/:jobid', () => {
       Job.find({ id: jobs[index].id }).then((jobs) => {
         expect(jobs.length).toBe(0);
         done();
-      }).catch((e) => done(e))
+      }).catch((e) => done(e));
     });
+  });
+});
+
+describe('PUT /jobs/:jobid', () => {
+  it('should update an existing job', (done) => {
+    var index = 1;
+    var new_url = "http://updated.url.com/id_of_the_job";
+    request(app)
+    .put(`/jobs/${jobs[index].id}`)
+    .send({ jobUrl: new_url })
+    .expect(200)
+    .expect((res) => {
+      expect(res.body.id).toBe(jobs[index].id);
+      expect(res.body._id).toBe(jobs[index]._id.toHexString());
+      // expect(res.body.jobUrl).toBe(new_url);
+    }).end((err, res) => {
+      if (err) {
+        return done(err);
+      }
+
+      Job.find({ id: jobs[index].id }).then((jobs) => {
+        expect(jobs.length).toBe(1);
+        expect(jobs[0].jobUrl).toBe(new_url);
+        done();
+      }).catch((e) => done(e));
+    });
+  });
+
+  it('should fail to update a non-existing job', (done) => {
+    var false_id = "__falseId__";
+    var new_url = "http://you.should.not/see/this/url";
+    request(app)
+    .put(`/jobs/${false_id}`)
+    .send({ jobUrl: new_url })
+    .expect(400)
+    .end(done);
   });
 });
