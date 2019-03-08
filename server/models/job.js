@@ -14,7 +14,7 @@ var Job = mongoose.model('Job', {
     type: String,
     required: true
   },
-  history: [{ status: String, date: Date}],
+  history: [{ status: String, title: String, text: String, date: Date}],
   title: {
     type: String,
     required: true
